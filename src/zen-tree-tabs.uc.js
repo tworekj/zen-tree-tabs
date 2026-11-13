@@ -908,6 +908,10 @@
     if (!ready) {
       return; // Session restore: the tab's saved values are its tree state.
     }
+    if (event.detail?.fromExternal) {
+      scheduleRender();
+      return; // External links have no parent in this tab tree.
+    }
     // Links (and window.open) have an opener: the new tab is its last child.
     // Otherwise, place it relative to the active tab per newTabPosition().
     let base = tab.openerTab;
